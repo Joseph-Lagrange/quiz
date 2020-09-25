@@ -8,30 +8,52 @@ class Shop extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: []
+            data: {},
         };
     }
 
     componentDidMount() {
         fetch(URL).then((response) => response.json())
             .then((result) => {
-                // console.log(result);
+                console.log(result);
                 this.setState({
                     data: result
                 });
             });
     }
 
+    handleIncrement(key) {
+        console.log(key);
+        //this.state.data[key].num = 1;
+        console.log(this.state.data[key]);
+        fetch('http://localhost:8080/order', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(this.state.data[key])
+        }).then(response => response.json())
+            .then(result => {
+                console.log(result)
+            }).catch(result => {
+            console.log(result)
+        })
+    }
+
     render() {
-        let name = this.state.data[0].name;
-        console.log(name);
         return (
             <div className="shop">
-
-                <div style={{border:'solid #ededed',width:'150px',height:'250px',margin:'30px',float:'left'}}>
-
-                </div>
-
+                {Object.keys(this.state.data)
+                    .map((key) => (
+                        <div key={key} style={{border:'solid #ededed',width:'150px',height:'250px',margin:'30px',float:'left'}}>
+                            <h3>{this.state.data[key].name}</h3>
+                            <p>单价：{this.state.data[key].price}/{this.state.data[key].unit}</p>
+                            <button
+                                className="btn btn-success m-2"
+                                onClick={() => this.handleIncrement(key)}
+                            >+</button>
+                        </div>
+                    ))}
             </div>
         );
     }
