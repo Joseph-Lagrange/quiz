@@ -5,6 +5,7 @@ import com.twuc.shopping.po.OrderPO;
 import com.twuc.shopping.repository.OrderRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public class OrderService {
 
@@ -29,5 +30,9 @@ public class OrderService {
 
     public void deleteById(int id) {
         orderRepository.deleteById(id);
+    }
+
+    public Optional<OrderPO> findById(int id) {
+        return orderRepository.findById(id);
     }
 }

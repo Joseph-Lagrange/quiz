@@ -33,6 +33,10 @@ public class OrderController {
     @DeleteMapping("/order/{id}")
     @Transactional
     public ResponseEntity deleteOrder(@PathVariable int id) {
+        Optional<OrderPO> optional = orderService.findById(id);
+        if (!optional.isPresent()) {
+            return ResponseEntity.badRequest().build();
+        }
         orderService.deleteById(id);
         return ResponseEntity.ok().build();
     }
