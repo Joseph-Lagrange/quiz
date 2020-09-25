@@ -88,4 +88,10 @@ public class OrderControllerTest {
         assertEquals(0, orderRepository.findAll().size());
     }
 
+    @org.junit.jupiter.api.Order(4)
+    public void should_not_delete_order_when_id_not_exsit() throws Exception {
+        mockMvc.perform(delete("/order/{id}", 100))
+                .andExpect(status().isBadRequest());
+    }
+
 }
