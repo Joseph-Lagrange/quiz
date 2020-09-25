@@ -72,4 +72,20 @@ public class OrderControllerTest {
                 .andExpect(status().isOk());
     }
 
+    @Test
+    @org.junit.jupiter.api.Order(3)
+    public void should_delete_order_when_id_exsit() throws Exception {
+        OrderPO orderPO = orderRepository.save(
+                OrderPO.builder()
+                        .name("可乐")
+                        .price(3)
+                        .number(5)
+                        .unit("瓶").build());
+
+        mockMvc.perform(delete("/order/{id}", orderPO.getId()))
+                .andExpect(status().isOk());
+
+        assertEquals(0, orderRepository.findAll().size());
+    }
+
 }
