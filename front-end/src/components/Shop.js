@@ -54,6 +54,7 @@ class Shop extends Component {
                             <p>单价：{this.state.data[key].price}/{this.state.data[key].unit}</p>
                             <button
                                 className="btn btn-success m-2"
+                                style={{width:'30px',height:'30px',borderRadius:'50%',border:'none'}}
                                 onClick={() => this.handler(key)}
                             >+
                             </button>
