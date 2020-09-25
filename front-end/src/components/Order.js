@@ -18,7 +18,23 @@ class Order extends Component {
                 this.setState({
                     data: result
                 });
+                console.log(this.state.data);
             });
+    }
+
+    handler(id) {
+        fetch('http://localhost:8080/order/' + id, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response => response.json())
+            .then(result => {
+                console.log(result)
+            })
+            .catch(result => {
+                console.log(result)
+            })
     }
 
     render() {
@@ -51,7 +67,11 @@ class Order extends Component {
                                 <td><p>{this.state.data[key].number}</p></td>
                                 <td><p>{this.state.data[key].unit}</p></td>
                                 <td>
-                                    <button>+</button>
+                                    <button
+                                        className="btn btn-success m-2"
+                                        onClick={() => this.handler(this.state.data[key].id)}
+                                    >删除
+                                    </button>
                                 </td>
                             </tr>
                         ))}
