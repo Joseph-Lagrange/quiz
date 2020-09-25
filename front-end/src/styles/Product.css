@@ -1,0 +1,28 @@
+.product {
+    text-align: left;
+}
+
+h1 {
+    text-align: center;
+}
+
+form div {
+    margin-left: 55px;
+    margin-top: 10px;
+}
+
+.combination {
+    margin-top: 25px;
+}
+
+label:before {
+    content: '* ';
+    color: red;
+}
+
+.combination input {
+    width: 700px;
+    height: 23px;
+    border: 0.5px solid #EEEEEE;
+    border-radius: 8px;
+}
