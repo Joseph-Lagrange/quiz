@@ -5,16 +5,18 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "ShopProduct")
-public class ProductPO {
+@Table(name = "ShopOrder")
+public class OrderPO {
 
     @Id
     @GeneratedValue
@@ -24,8 +26,7 @@ public class ProductPO {
 
     private int price;
 
+    private int number;
+
     private String unit;
-
-    private String url;
-
 }

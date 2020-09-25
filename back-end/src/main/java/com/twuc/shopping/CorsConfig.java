@@ -1,6 +1,8 @@
 package com.twuc.shopping;
 
+import com.twuc.shopping.repository.OrderRepository;
 import com.twuc.shopping.repository.ProductRepository;
+import com.twuc.shopping.service.OrderService;
 import com.twuc.shopping.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -14,6 +16,9 @@ public class CorsConfig {
 
     @Autowired
     ProductRepository productRepository;
+
+    @Autowired
+    OrderRepository orderRepository;
 
     private static String[] originsVal = new String[]{
             "127.0.0.1:8080",
@@ -42,5 +47,10 @@ public class CorsConfig {
     @Bean
     public ProductService productService() {
         return new ProductService(productRepository);
+    }
+
+    @Bean
+    public OrderService orderService() {
+        return new OrderService(orderRepository);
     }
 }
