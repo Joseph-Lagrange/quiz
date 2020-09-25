@@ -26,4 +26,8 @@ public class OrderService {
         orderPO.setNumber(order.getNumber());
         orderRepository.save(orderPO);
     }
+
+    public void deleteById(int id) {
+        orderRepository.deleteById(id);
+    }
 }
