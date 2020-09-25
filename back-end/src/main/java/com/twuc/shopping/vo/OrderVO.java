@@ -1,22 +1,16 @@
-package com.twuc.shopping.po;
+package com.twuc.shopping.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-
-@Entity
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "ShopOrder")
-public class OrderPO {
+public class OrderVO {
 
-    @Id
-    @GeneratedValue
     private int id;
 
     private String name;
@@ -27,6 +21,4 @@ public class OrderPO {
 
     private String unit;
 
-    @ManyToOne
-    private ProductPO productPO;
 }

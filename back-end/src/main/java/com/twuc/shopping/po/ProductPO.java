@@ -1,5 +1,6 @@
 package com.twuc.shopping.po;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,5 +28,8 @@ public class ProductPO {
     private String unit;
 
     private String url;
+
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "productPO")
+    private List<OrderPO> orderPOs;
 
 }

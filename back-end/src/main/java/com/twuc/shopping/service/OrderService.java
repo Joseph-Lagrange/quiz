@@ -2,6 +2,7 @@ package com.twuc.shopping.service;
 
 import com.twuc.shopping.domain.Order;
 import com.twuc.shopping.po.OrderPO;
+import com.twuc.shopping.po.ProductPO;
 import com.twuc.shopping.repository.OrderRepository;
 
 import java.util.List;
@@ -19,13 +20,20 @@ public class OrderService {
         return orderRepository.findAll();
     }
 
-    public OrderPO save(Order order) {
-        OrderPO orderPO = new OrderPO();
-        orderPO.setName(order.getName());
-        orderPO.setPrice(order.getPrice());
-        orderPO.setUnit(order.getUnit());
-        orderPO.setNumber(order.getNumber());
-        orderPO = orderRepository.save(orderPO);
+    public OrderPO save(Order order, ProductPO productPO) {
+        Optional<OrderPO> optional = orderRepository.findByName(order.getName());
+        OrderPO orderPO;
+        if (optional.isPresent()) {
+            orderPO = optional.get();
+            orderPO.setNumber(orderPO.getNumber() + 1);
+        } else {
+            orderPO = OrderPO.builder().name(order.getName())
+                    .price(order.getPrice())
+                    .unit(order.getUnit())
+                    .number(order.getNumber())
+                    .productPO(productPO).build();
+        }
+        orderRepository.save(orderPO);
         return orderPO;
     }
 

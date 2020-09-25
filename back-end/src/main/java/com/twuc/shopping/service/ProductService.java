@@ -6,6 +6,7 @@ import com.twuc.shopping.repository.ProductRepository;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.Optional;
 
 public class ProductService {
 
@@ -27,5 +28,9 @@ public class ProductService {
         productPO.setUrl(product.getUrl());
         productPO = productRepository.save(productPO);
         return productPO;
+    }
+
+    public Optional<ProductPO> findById(int productId) {
+        return productRepository.findById(productId);
     }
 }
