@@ -20,8 +20,8 @@ public class ProductController {
 
     @PostMapping("/product")
     public ResponseEntity addProduct(@RequestBody @Valid Product product) {
-        productService.save(product);
-        return ResponseEntity.created(null).build();
+        ProductPO productPO = productService.save(product);
+        return ResponseEntity.ok(productPO);
     }
 
     @GetMapping("/products")

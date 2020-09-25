@@ -20,8 +20,8 @@ public class OrderController {
 
     @PostMapping("/order")
     public ResponseEntity addOrder(@RequestBody @Valid Order order) {
-        orderService.save(order);
-        return ResponseEntity.created(null).build();
+        OrderPO orderPO = orderService.save(order);
+        return ResponseEntity.ok(orderPO);
     }
 
     @GetMapping("/orders")
@@ -38,7 +38,7 @@ public class OrderController {
             return ResponseEntity.badRequest().build();
         }
         orderService.deleteById(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(optional.get());
     }
 
 }

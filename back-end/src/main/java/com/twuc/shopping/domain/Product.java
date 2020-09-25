@@ -10,6 +10,7 @@ public class Product {
     private String name;
 
     @NotNull
+    @Min(0)
     private int price;
 
     @NotNull

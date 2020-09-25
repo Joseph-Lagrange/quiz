@@ -19,12 +19,13 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public void save(Product product) {
+    public ProductPO save(Product product) {
         ProductPO productPO = new ProductPO();
         productPO.setName(product.getName());
         productPO.setPrice(product.getPrice());
         productPO.setUnit(product.getUnit());
         productPO.setUrl(product.getUrl());
-        productRepository.save(productPO);
+        productPO = productRepository.save(productPO);
+        return productPO;
     }
 }

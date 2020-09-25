@@ -48,7 +48,7 @@ public class ProductControllerTest {
         mockMvc.perform(post("/product")
                 .content(jsonString)
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated());
+                .andExpect(status().isOk());
 
         List<ProductPO> productPOs = productRepository.findAll();
         assertEquals(1, productPOs.size());
@@ -65,7 +65,7 @@ public class ProductControllerTest {
         mockMvc.perform(post("/product")
                 .content(jsonString)
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated());
+                .andExpect(status().isOk());
 
         mockMvc.perform(get("/products"))
                 .andExpect(jsonPath("$", hasSize(1)))

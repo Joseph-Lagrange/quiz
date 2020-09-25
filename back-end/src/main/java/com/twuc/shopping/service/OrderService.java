@@ -19,13 +19,14 @@ public class OrderService {
         return orderRepository.findAll();
     }
 
-    public void save(Order order) {
+    public OrderPO save(Order order) {
         OrderPO orderPO = new OrderPO();
         orderPO.setName(order.getName());
         orderPO.setPrice(order.getPrice());
         orderPO.setUnit(order.getUnit());
         orderPO.setNumber(order.getNumber());
-        orderRepository.save(orderPO);
+        orderPO = orderRepository.save(orderPO);
+        return orderPO;
     }
 
     public void deleteById(int id) {

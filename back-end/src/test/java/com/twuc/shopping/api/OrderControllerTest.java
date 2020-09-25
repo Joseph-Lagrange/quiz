@@ -48,7 +48,7 @@ public class OrderControllerTest {
         mockMvc.perform(post("/order")
                 .content(jsonString)
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated());
+                .andExpect(status().isOk());
 
         List<OrderPO> orderPOs = orderRepository.findAll();
         assertEquals(1, orderPOs.size());
@@ -64,7 +64,7 @@ public class OrderControllerTest {
         mockMvc.perform(post("/order")
                 .content(jsonString)
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated());
+                .andExpect(status().isOk());
 
         mockMvc.perform(get("/orders"))
                 .andExpect(jsonPath("$", hasSize(1)))
@@ -88,6 +88,7 @@ public class OrderControllerTest {
         assertEquals(0, orderRepository.findAll().size());
     }
 
+    @Test
     @org.junit.jupiter.api.Order(4)
     public void should_not_delete_order_when_id_not_exsit() throws Exception {
         mockMvc.perform(delete("/order/{id}", 100))
