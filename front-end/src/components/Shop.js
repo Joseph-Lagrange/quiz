@@ -31,7 +31,7 @@ class Shop extends Component {
             body: JSON.stringify(this.state.data[key])
         }).then(response => response.json())
             .then(result => {
-                console.log(result)
+                alert("添加成功");
             })
             .catch(result => {
                 console.log(result)

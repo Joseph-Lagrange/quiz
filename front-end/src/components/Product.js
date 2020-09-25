@@ -21,11 +21,6 @@ class Product extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        console.log(this.state.name);
-        console.log(this.state.price);
-        console.log(this.state.unit);
-        console.log(this.state.url);
-        console.log(this.state);
         fetch('http://localhost:8080/product', {
             method: 'POST',
             headers: {
@@ -34,7 +29,7 @@ class Product extends Component {
             body: JSON.stringify(this.state)
         }).then(response => response.json())
             .then(result => {
-                console.log(result)
+                alert("添加成功");
             })
             .catch(result => {
                 console.log(result)

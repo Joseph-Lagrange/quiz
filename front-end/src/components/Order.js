@@ -18,7 +18,6 @@ class Order extends Component {
                 this.setState({
                     data: result
                 });
-                console.log(this.state.data);
             });
     }
 
@@ -30,10 +29,11 @@ class Order extends Component {
             }
         }).then(response => response.json())
             .then(result => {
-                console.log(result)
+                alert("删除成功");
             })
             .catch(result => {
-                console.log(result)
+                alert("订单删除失败，请稍后再试");
+                console.log(result);
             })
     }
 
