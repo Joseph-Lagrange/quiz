@@ -15,17 +15,14 @@ class Shop extends Component {
     componentDidMount() {
         fetch(URL).then((response) => response.json())
             .then((result) => {
-                console.log(result);
                 this.setState({
                     data: result
                 });
             });
     }
 
-    handleIncrement(key) {
-        console.log(key);
-        //this.state.data[key].num = 1;
-        console.log(this.state.data[key]);
+    handler(key) {
+        this.state.data[key].number = 1;
         fetch('http://localhost:8080/order', {
             method: 'POST',
             headers: {
@@ -35,9 +32,10 @@ class Shop extends Component {
         }).then(response => response.json())
             .then(result => {
                 console.log(result)
-            }).catch(result => {
-            console.log(result)
-        })
+            })
+            .catch(result => {
+                console.log(result)
+            })
     }
 
     render() {
@@ -45,13 +43,20 @@ class Shop extends Component {
             <div className="shop">
                 {Object.keys(this.state.data)
                     .map((key) => (
-                        <div key={key} style={{border:'solid #ededed',width:'150px',height:'250px',margin:'30px',float:'left'}}>
+                        <div key={key} style={{
+                            border: 'solid #ededed',
+                            width: '150px',
+                            height: '250px',
+                            margin: '30px',
+                            float: 'left'
+                        }}>
                             <h3>{this.state.data[key].name}</h3>
                             <p>单价：{this.state.data[key].price}/{this.state.data[key].unit}</p>
                             <button
                                 className="btn btn-success m-2"
-                                onClick={() => this.handleIncrement(key)}
-                            >+</button>
+                                onClick={() => this.handler(key)}
+                            >+
+                            </button>
                         </div>
                     ))}
             </div>
