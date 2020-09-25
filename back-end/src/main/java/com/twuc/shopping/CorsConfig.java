@@ -1,5 +1,8 @@
 package com.twuc.shopping;
 
+import com.twuc.shopping.repository.ProductRepository;
+import com.twuc.shopping.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
@@ -8,6 +11,10 @@ import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 public class CorsConfig {
+
+    @Autowired
+    ProductRepository productRepository;
+
     private static String[] originsVal = new String[]{
             "127.0.0.1:8080",
             "localhost:8080",
@@ -30,5 +37,10 @@ public class CorsConfig {
             corsConfiguration.addAllowedOrigin("http://" + origin);
             corsConfiguration.addAllowedOrigin("https://" + origin);
         }
+    }
+
+    @Bean
+    public ProductService productService() {
+        return new ProductService(productRepository);
     }
 }
