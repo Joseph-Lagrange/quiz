@@ -22,8 +22,9 @@ class Shop extends Component {
     }
 
     handler(key) {
+        console.log("id: " + this.state.data[key].id);
         this.state.data[key].number = 1;
-        fetch('http://localhost:8080/order', {
+        fetch('http://localhost:8080/order/' + this.state.data[key].id, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -32,6 +33,7 @@ class Shop extends Component {
         }).then(response => response.json())
             .then(result => {
                 alert("添加成功");
+                console.log(result)
             })
             .catch(result => {
                 console.log(result)
@@ -50,6 +52,7 @@ class Shop extends Component {
                             margin: '30px',
                             float: 'left'
                         }}>
+                            <img src={this.state.data[key].url} alt="cola"/>
                             <h3>{this.state.data[key].name}</h3>
                             <p>单价：{this.state.data[key].price}/{this.state.data[key].unit}</p>
                             <button

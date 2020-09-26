@@ -27,13 +27,25 @@ class Product extends Component {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(this.state)
-        }).then(response => response.json())
+        }).then(this.checkStatus)
+            .then(response => response.json())
             .then(result => {
                 alert("添加成功");
-            })
-            .catch(result => {
                 console.log(result)
             })
+            .catch(result => {
+                alert("添加失败");
+                console.log(result)
+            })
+    }
+
+    checkStatus(response) {
+        if (response.status >= 200 && response.status < 300) {
+            return response;
+        }
+        const error = new Error(response.statusText);
+        error.response = response;
+        throw error;
     }
 
     render() {
