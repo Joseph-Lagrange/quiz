@@ -1,5 +1,6 @@
 package com.twuc.shopping.api;
 
+import com.google.common.collect.Lists;
 import com.twuc.shopping.domain.Order;
 import com.twuc.shopping.po.OrderPO;
 import com.twuc.shopping.po.ProductPO;
@@ -14,6 +15,8 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @RestController
 public class OrderController {
@@ -31,18 +34,22 @@ public class OrderController {
             return ResponseEntity.badRequest().build();
         }
         OrderPO orderPO = orderService.save(order, optional.get());
-        OrderVO orderVO = OrderVO.builder().id(orderPO.getId())
+        return ResponseEntity.ok(getOrderVO(orderPO));
+    }
+
+    private OrderVO getOrderVO(OrderPO orderPO) {
+        return OrderVO.builder().id(orderPO.getId())
                 .name(orderPO.getName())
                 .number(orderPO.getNumber())
                 .price(orderPO.getPrice())
                 .unit(orderPO.getUnit()).build();
-        return ResponseEntity.ok(orderVO);
     }
 
     @GetMapping("/orders")
     public ResponseEntity getOrders() {
         List<OrderPO> orderPOs = orderService.findAll();
-        return ResponseEntity.ok(orderPOs);
+        List<OrderVO> orderVOs = orderPOs.stream().map(this::getOrderVO).collect(Collectors.toList());
+        return ResponseEntity.ok(orderVOs);
     }
 
     @DeleteMapping("/order/{id}")
